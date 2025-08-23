@@ -1,0 +1,4 @@
+node_modules/
+*.local
+*.json
+functions/maisha-safe-firebase-adminsdk-fbsvc-44e44d8ffc.json
