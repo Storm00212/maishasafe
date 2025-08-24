@@ -39,6 +39,7 @@ const triggerSOS = async (req, res) => {
       createdAt: new Date(),
     };
     await docRef.set(alertData);
+    console.log("Writing to firestore", alertData);
 
     // Send WhatsApp messages via Infobip
     for (const contact of parsed.sentTo) {

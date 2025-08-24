@@ -72,11 +72,11 @@ const responses = {
       "2) Ikiwa inawezekana, muombe mtu unayemwamini msaada.",
       "3) Nenda hospitali iliyo karibu."],
   },
-};//Hizi ni prebuilt chat responses for educating the user and stuff. Kwa front end unaeza eka such that user ataselect one of the questions then atapata these responses.
-//chatbot.
+};// Hizi ni prebuilt chat responses for educating the user and stuff. Kwa front end unaeza eka such that user ataselect one of the questions then atapata these responses.
+// chatbot.
 const chatbotController = async (req, res) => {
   try {
-    const { query, language = "en", userId = "anonymous" } = req.body;
+    const {query, language = "en", userId = "anonymous"} = req.body;
     const lang = language.toLowerCase() === "sw" ? "sw" : "en";
     const lowerQuery = query.toLowerCase();
 
@@ -111,9 +111,9 @@ const chatbotController = async (req, res) => {
       reply = responses[lang].medical.join(" ");
     } else {
       reply =
-        lang === "sw"
-          ? "Samahani, sijaelewa. Tafadhali jaribu kuuliza tena."
-          : "Sorry, I didn’t understand that. Please try again.";
+        lang === "sw" ?
+          "Samahani, sijaelewa. Tafadhali jaribu kuuliza tena." :
+          "Sorry, I didn’t understand that. Please try again.";
     }
 
     // Save chat log to database.
@@ -128,7 +128,7 @@ const chatbotController = async (req, res) => {
     };
 
     await db.collection("chatbotLogs").doc(chatId).set(chatLog);
-
+    console.log("Writing to firestore", chatLog);
     return res.status(200).json({
       success: true,
       response: reply,
@@ -146,7 +146,7 @@ const chatbotController = async (req, res) => {
 // Fetch chat history for a user.(hii ni ya in case user anadai kurefer to previous chats to understand something, so unaeza zimap kwa conversation in frontend.)
 const getChatHistory = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const {userId} = req.params;
 
     if (!userId) {
       return res.status(400).json({
@@ -156,11 +156,11 @@ const getChatHistory = async (req, res) => {
     }
 
     const snapshot = await db
-      .collection("chatbotLogs")
-      .where("userId", "==", userId)
-      .orderBy("createdAt", "desc")
-      .limit(20)
-      .get();
+        .collection("chatbotLogs")
+        .where("userId", "==", userId)
+        .orderBy("createdAt", "desc")
+        .limit(20)
+        .get();
 
     const history = snapshot.docs.map((doc) => doc.data());
 

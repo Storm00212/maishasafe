@@ -26,6 +26,8 @@ module.exports = {
       },
       rules: {
         "linebreak-style": "off",
+        "camelcase": "off",
+        "new-cap": "off",
       },
     },
   ],

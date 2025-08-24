@@ -39,7 +39,10 @@ require("dotenv").config();
 
 const sosRoutes = require("./src/routes/sosRoutes.js");
 const chatbotRoutes = require("./src/routes/chatbotRoute.js");
-
+const userRoutes = require("./src/routes/userRoutes.js");
+const counselingRoutes = require("./routes/counselingRoutes.js");
+const evidenceRoutes = require("./routes/evidenceRoutes.js");
+const trustedContactsRoutes = require("./routes/trustedContactsRoutes.js");
 const app = express();
 
 app.use(cors({origin: true}));
@@ -48,6 +51,10 @@ app.use(express.json());
 // API routes
 app.use("/sos", sosRoutes);
 app.use("/chatbot", chatbotRoutes);
+app.use("/users", userRoutes);
+app.use("/api/counseling", counselingRoutes);
+app.use("/api/evidence", evidenceRoutes);
+app.use("/api/contacts", trustedContactsRoutes);
 
 exports.api = functions.https.onRequest(app);
 
